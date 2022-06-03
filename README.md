@@ -1,1 +1,7 @@
-# gcp-pubsub-topic
+# gcp-pubsub
+
+Type: gcp-pubsub
+
+GCP Pub/Sub
+
+---

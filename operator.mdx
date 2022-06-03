@@ -1,0 +1,53 @@
+# Operator Guide for "{type}"
+
+## TODO:
+
+* [ ] Write a design doc / operator guide
+* [ ] Write bundle code
+  * [ ] Defing params & connections JSON schema
+  * [ ] Write 2-3 Guided Configs
+  * [ ] Define artifact schema, design new artifact definitions if necessary
+  * [ ] Test each guided config
+  * [ ] View params schema in storybook, [write UI schema](https://react-jsonschema-form.readthedocs.io/en/latest/usage/widgets/) for sorting fields, etc
+* [ ] Write user guide
+* [ ] Remove this TODO block
+
+_Brief description of bundle from an operator's point of view_
+
+## Use Cases
+
+_Common use cases for this bundle_
+
+### Guided Configs
+
++ Production enables monitoring and sets a longer message retention window.
+
+## Design
+
+### How It Works
+
++ This bundle creates a _topic_, in GCP that is PubSub
++ You can enable monitoring, alarms will be sent to Massdriver
+
+#### Best Practices
+
+#### Security
+
++ Note: Pub/Sub is not associated with any specific IP address. This is relevant if you rely on IP-based firewall rules.
++ No access outside the GCP project is provided
+
+#### Auditing
+
+#### Compliance
+
+#### Observability
+
++ The bundle ships with the ability to alarm on one threshold, the `pubsub.googleapis.com/topic/retained_bytes` metric.
+
+### Trade-offs
+
+_List trade offs made with this bundle_
+
+### Permissions
+
+_list IAM permissions required on this bundle._

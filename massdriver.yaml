@@ -1,0 +1,76 @@
+schema: draft-07
+name: gcp-pubsub-topic
+description: "GCP Pub/Sub Topic"
+ref: github.com/massdriver-cloud/massdriver-bundles
+access: public
+type: bundle
+
+steps:
+  - path: src
+    provisioner: terraform
+
+params:
+  examples:
+    - __name: Development
+      message_retention_duration_seconds: 600
+    - __name: Production
+      message_retention_duration_seconds: 86600
+      monitoring_configuration:
+        enabled: true
+  required:
+    - message_retention_duration_seconds
+    - monitoring_configuration
+  properties:
+    message_retention_duration_seconds:
+      type: integer
+      title: Message Retention Duration
+      description: The minimum duration (in seconds) to retain a message after it is published to the topic.
+      minimum: 600
+      maximum: 604800
+      default: 86600
+    monitoring_configuration:
+      type: object
+      title: Monitoring Configuration
+      description: Enable and configure monitoring for your PubSub subscription.
+      required: []
+      properties:
+        enabled:
+          type: boolean
+          title: Enable Monitoring
+          description: "Enables monitoring for this bundle"
+          default: false
+        retained_bytes_above:
+          type: integer
+          title: Retained Bytes Above
+          description: The threshold (in bytes) of messages in the queue to alarm on.
+          default: 100000
+          minimum: 0
+          # not sure what the max is here, this is 10GB
+          maximum: 10000000000
+
+connections:
+  required:
+    - gcp_authentication
+    - subnetwork
+  properties:
+    gcp_authentication:
+      $ref: massdriver/gcp-service-account
+    subnetwork:
+      $ref: massdriver/gcp-subnetwork
+
+artifacts:
+  required:
+    - topic
+  properties:
+    topic:
+      $ref: massdriver/gcp-pubsub-topic
+
+ui:
+  ui:order:
+    - message_retention_duration_seconds
+    - monitoring_configuration
+    - "*"
+  monitoring_configuration:
+    ui:order:
+      - enabled
+      - retained_bytes_above
