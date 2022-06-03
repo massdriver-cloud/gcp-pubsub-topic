@@ -1,66 +1,76 @@
-# This file will be used to generate all of the schema-*.json files in a bundle
 schema: draft-07
-name: "gcp-pubsub-topic"
-description: "gaaa"
-ref: github.com/YOUR_NAME_HERE/gcp-pubsub-topic
-access: "public"
-type: "bundle"
+name: gcp-pubsub-topic
+description: "GCP Pub/Sub Topic"
+ref: github.com/massdriver-cloud/massdriver-bundles
+access: public
+type: bundle
 
 steps:
   - path: src
     provisioner: terraform
 
-# schema-params.json
-# JSON Schema sans-fields above
 params:
   examples:
-    - foo: US-West 2 VPC
-    - foo: US-East 1 VPC
+    - __name: Development
+      message_retention_duration_seconds: 600
+    - __name: Production
+      message_retention_duration_seconds: 86600
+      monitoring_configuration:
+        enabled: true
   required:
-    - foo
+    - message_retention_duration_seconds
+    - monitoring_configuration
   properties:
-    foo:
-      type: string
-      title: Foo
-      description: Name of gcp-pubsub-topic
-      default: ""
-      examples:
-        - US-West 2 VPC
-        - US-East 1 VPC
+    message_retention_duration_seconds:
+      type: integer
+      title: Message Retention Duration
+      description: The minimum duration (in seconds) to retain a message after it is published to the topic.
+      minimum: 600
+      maximum: 604800
+      default: 86600
+    monitoring_configuration:
+      type: object
+      title: Monitoring Configuration
+      description: Enable and configure monitoring for your PubSub subscription.
+      required: []
+      properties:
+        enabled:
+          type: boolean
+          title: Enable Monitoring
+          description: "Enables monitoring for this bundle"
+          default: false
+        retained_bytes_above:
+          type: integer
+          title: Retained Bytes Above
+          description: The threshold (in bytes) of messages in the queue to alarm on.
+          default: 100000
+          minimum: 0
+          # not sure what the max is here, this is 10GB
+          maximum: 10000000000
 
-# schema-connections.json
-# Named list of input connections (artifacts) (map[name]artifact)
 connections:
-  properties: {}
-  # required:
-  # - aws_authentication
-  # - network
-  # properties:
-  #   aws_authentication:
-  #     $ref: massdriver/aws-iam-role
-  #   network:
-  #     $ref: massdriver/aws-regional-cloud
+  required:
+    - gcp_authentication
+    - subnetwork
+  properties:
+    gcp_authentication:
+      $ref: massdriver/gcp-service-account
+    subnetwork:
+      $ref: massdriver/gcp-subnetwork
 
-# schema-artifacts.json
-# Named list of output artifacts  (map[name]artifact)
 artifacts:
-  properties: {}
-  # required:
-  #   - network
-  # properties:
-  #   network:
-  #     $ref: massdriver/aws-regional-cloud
+  required:
+    - topic
+  properties:
+    topic:
+      $ref: massdriver/gcp-pubsub-topic
 
-# schema-ui.json
-# List of form customizations for params-schema
 ui:
   ui:order:
+    - message_retention_duration_seconds
+    - monitoring_configuration
     - "*"
-  ## set top level ui:wiget
-  # secret_key:
-  #    ui:widget: "password"
-  ## Set key in an array of objects
-  # secrets:
-  #   items:
-  #     mdKeyId:
-  #       ui:widget: "hidden"
+  monitoring_configuration:
+    ui:order:
+      - enabled
+      - retained_bytes_above

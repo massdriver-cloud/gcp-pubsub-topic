@@ -6,7 +6,7 @@ import guideMdxString from './operator.mdx'
 import Form from 'components/Form'
 import GuideRenderer from 'components/GuideRenderer'
 
-const type = 'gcp-pubsub-topic'
+const type = 'gcp-pubsub'
 
 /**
  * This is the scope object that is given to the MDX guide when parsing and

@@ -1,10 +1,4 @@
-# Operator Guide
-
-This is the guide for your bundle. It will appear under the `guide` button in Massdriver.
-
-Use it to describe to users how the bundle works, use cases for the bundle, and event examples.
-
-<!-- We may want to polish this for template before releasing --> 
+# Operator Guide for "{type}"
 
 ## TODO:
 
@@ -26,23 +20,29 @@ _Common use cases for this bundle_
 
 ### Guided Configs
 
-_Describe the guided configs_
++ Production enables monitoring and sets a longer message retention window.
 
 ## Design
 
 ### How It Works
 
-_Describe how it works_
++ This bundle creates a _topic_, in GCP that is PubSub
++ You can enable monitoring, alarms will be sent to Massdriver
 
 #### Best Practices
 
-#### Security 
+#### Security
+
++ Note: Pub/Sub is not associated with any specific IP address. This is relevant if you rely on IP-based firewall rules.
++ No access outside the GCP project is provided
 
 #### Auditing
 
 #### Compliance
 
 #### Observability
+
++ The bundle ships with the ability to alarm on one threshold, the `pubsub.googleapis.com/topic/retained_bytes` metric.
 
 ### Trade-offs
 
