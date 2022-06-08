@@ -5,17 +5,15 @@ locals {
 
   data_security = {
     iam = {
-      read = {
-        role      = "roles/pubsub.viewer"
-        condition = "resource.name.startsWith(\"${local.data_infrastructure.grn}\")"
+      viewer = {
+        role        = "roles/pubsub.viewer"
+        description = "Can view this topic."
+        condition   = "resource.name.startsWith(\"${local.data_infrastructure.grn}\")"
       }
-      write = {
-        role      = "roles/pubsub.publisher"
-        condition = "resource.name.startsWith(\"${local.data_infrastructure.grn}\")"
-      }
-      edit = {
-        role      = "roles/pubsub.editor"
-        condition = "resource.name.startsWith(\"${local.data_infrastructure.grn}\")"
+      publisher = {
+        role        = "roles/pubsub.publisher"
+        description = "Can publish messages to this topic."
+        condition   = "resource.name.startsWith(\"${local.data_infrastructure.grn}\")"
       }
     }
   }
