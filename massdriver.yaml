@@ -34,11 +34,6 @@ params:
       description: Enable and configure monitoring for your PubSub subscription.
       required: []
       properties:
-        enabled:
-          type: boolean
-          title: Enable Monitoring
-          description: "Enables monitoring for this bundle"
-          default: false
         retained_bytes_above:
           type: integer
           title: Retained Bytes Above
