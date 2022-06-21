@@ -16,9 +16,10 @@ module "alarm_channel" {
 }
 
 module "topic_bytes_alarm" {
-  source                  = "github.com/massdriver-cloud/terraform-modules//gcp-monitoring-utilization-threshold?ref=aa08797"
+  source                  = "github.com/massdriver-cloud/terraform-modules//gcp-monitoring-utilization-threshold?ref=8997456"
   notification_channel_id = module.alarm_channel.id
   md_metadata             = var.md_metadata
+  display_name            = "Retained Bytes"
   message                 = "PubSub Topic ${var.md_metadata.name_prefix} is above retainedBytes threshold of ${local.threshold_retained_bytes}"
   alarm_name              = "${google_pubsub_topic.main.id}-retainedBytes"
   metric_type             = local.metrics["retained_bytes"].metric
