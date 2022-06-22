@@ -24,7 +24,6 @@ locals {
 resource "massdriver_artifact" "topic" {
   field                = "topic"
   provider_resource_id = google_pubsub_topic.main.id
-  type                 = "gcp-pubsub-topic"
   name                 = "GCP PubSub Topic ${var.md_metadata.name_prefix} (${google_pubsub_topic.main.id})"
   artifact             = jsonencode(local.artifact_topic)
 }

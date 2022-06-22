@@ -16,7 +16,7 @@ module "alarm_channel" {
 }
 
 module "topic_bytes_alarm" {
-  source                  = "github.com/massdriver-cloud/terraform-modules//gcp-monitoring-utilization-threshold?ref=8997456"
+  source                  = "github.com/massdriver-cloud/terraform-modules//gcp-monitoring-utilization-threshold?ref=cafdc89"
   notification_channel_id = module.alarm_channel.id
   md_metadata             = var.md_metadata
   display_name            = "Retained Bytes"
