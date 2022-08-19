@@ -1,6 +1,6 @@
 schema: draft-07
 name: gcp-pubsub-topic
-description: "GCP Pub/Sub Topic"
+description: "Provisiones a highly-scalable Pub/Sub Topic on Google Cloud."
 ref: github.com/massdriver-cloud/massdriver-bundles
 access: public
 type: bundle

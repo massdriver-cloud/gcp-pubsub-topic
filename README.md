@@ -1,6 +1,6 @@
-# gcp-global-network
+# gcp-pubsub-topic
 
-GCP global network. This is required in order to create regional networks to deploy resources.
+Provisiones a highly-scalable Pub/Sub Topic on Google Cloud.
 
 ## What Is A Bundle
 
