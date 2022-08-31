@@ -4,7 +4,11 @@ locals {
   }
 
   data_security = {
-  }
+    iam = {
+      publisher = {
+        role      = "roles/pubsub.publisher"
+      }
+    }
 
   specs_topic = {
     distribution = "pubsub"
