@@ -6,7 +6,8 @@ locals {
   data_security = {
     iam = {
       publisher = {
-        role      = "roles/pubsub.publisher"
+        role          = "roles/pubsub.publisher"
+        condition = "resource.name.endsWith(\"${var.md_metadata.name_prefix}\")"
       }
     }
 
