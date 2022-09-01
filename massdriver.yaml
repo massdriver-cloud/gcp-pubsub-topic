@@ -5,10 +5,6 @@ ref: github.com/massdriver-cloud/gcp-pubsub-topic
 access: public
 type: bundle
 
-steps:
-  - path: src
-    provisioner: terraform
-
 params:
   examples:
     - __name: Development
@@ -31,8 +27,9 @@ params:
     monitoring_configuration:
       type: object
       title: Monitoring Configuration
-      description: Enable and configure monitoring for your PubSub subscription.
-      required: []
+      description: Configure monitoring for your PubSub subscription.
+      required:
+        - retained_bytes_above
       properties:
         retained_bytes_above:
           type: integer
