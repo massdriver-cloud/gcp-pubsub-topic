@@ -50,7 +50,7 @@ Form input parameters for configuring a bundle for deployment.
 ## Properties
 
 - **`message_retention_duration_seconds`** *(integer)*: The minimum duration (in seconds) to retain a message after it is published to the topic. Minimum: `600`. Maximum: `604800`. Default: `86600`.
-- **`monitoring_configuration`** *(object)*: Enable and configure monitoring for your PubSub subscription.
+- **`monitoring_configuration`** *(object)*: Configure monitoring for your PubSub subscription.
   - **`retained_bytes_above`** *(integer)*: The threshold (in bytes) of messages in the queue to alarm on. Minimum: `0`. Maximum: `10000000000`. Default: `100000`.
 ## Examples
 
