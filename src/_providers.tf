@@ -19,5 +19,5 @@ terraform {
 provider "google" {
   project     = var.gcp_authentication.data.project_id
   credentials = jsonencode(var.gcp_authentication.data)
-  region      = var.subnetwork.specs.gcp.region
+  region      = var.region
 }
