@@ -14,9 +14,15 @@ params:
       monitoring_configuration:
         enabled: true
   required:
+    - region
     - message_retention_duration_seconds
     - monitoring_configuration
   properties:
+    region:
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
+      title: Region
+      description: GCP region to create the pubsub in.
+      $md.immutable: true
     message_retention_duration_seconds:
       type: integer
       title: Message Retention Duration
@@ -43,12 +49,10 @@ params:
 connections:
   required:
     - gcp_authentication
-    - subnetwork
   properties:
     gcp_authentication:
       $ref: massdriver/gcp-service-account
-    subnetwork:
-      $ref: massdriver/gcp-subnetwork
+
 
 artifacts:
   required:
@@ -59,6 +63,7 @@ artifacts:
 
 ui:
   ui:order:
+    - region
     - message_retention_duration_seconds
     - monitoring_configuration
     - "*"
@@ -66,3 +71,6 @@ ui:
     ui:order:
       - enabled
       - retained_bytes_above
+  region:
+    ui:field: supportedCloudLocationsDropdown
+    cloudService: gcp
