@@ -29,23 +29,6 @@ Bundles are the basic building blocks of infrastructure, applications, and archi
 
 ## Bundle
 
-
-<!-- COMPLIANCE:START -->
-
-Security and compliance scanning of our bundles is performed using [Bridgecrew](https://www.bridgecrew.cloud/). Massdriver also offers security and compliance scanning of operational infrastructure configured and deployed using the platform.
-
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-pubsub-topic/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-pubsub-topic&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
-
-<!-- COMPLIANCE:END -->
-
 ### Params
 
 Form input parameters for configuring a bundle for deployment.
@@ -59,6 +42,37 @@ Form input parameters for configuring a bundle for deployment.
 - **`message_retention_duration_seconds`** *(integer)*: The minimum duration (in seconds) to retain a message after it is published to the topic. Minimum: `600`. Maximum: `604800`. Default: `86600`.
 - **`monitoring_configuration`** *(object)*: Configure monitoring for your PubSub subscription.
   - **`retained_bytes_above`** *(integer)*: The threshold (in bytes) of messages in the queue to alarm on. Minimum: `0`. Maximum: `10000000000`. Default: `100000`.
+- **`region`** *(string)*: GCP region to create the pubsub in.
+
+  Examples:
+  ```json
+  "us-east1"
+  ```
+
+  ```json
+  "us-east4"
+  ```
+
+  ```json
+  "us-west1"
+  ```
+
+  ```json
+  "us-west2"
+  ```
+
+  ```json
+  "us-west3"
+  ```
+
+  ```json
+  "us-west4"
+  ```
+
+  ```json
+  "us-central1"
+  ```
+
 ## Examples
 
   ```json
@@ -157,101 +171,37 @@ Connections from other bundles that this bundle depends on.
   - **`specs`** *(object)*
     - **`gcp`** *(object)*: .
       - **`project`** *(string)*
-      - **`region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+      - **`region`** *(string)*: The GCP region to provision resources in.
 
         Examples:
+        ```json
+        "us-east1"
+        ```
+
+        ```json
+        "us-east4"
+        ```
+
+        ```json
+        "us-west1"
+        ```
+
         ```json
         "us-west2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: GCP Zone.
-
-        Examples:
-- **`subnetwork`** *(object)*: A region-bound network for deploying GCP resources. Cannot contain additional properties.
-  - **`data`** *(object)*
-    - **`infrastructure`** *(object)*
-      - **`cidr`** *(string)*
-
-        Examples:
         ```json
-        "10.100.0.0/16"
+        "us-west3"
         ```
 
         ```json
-        "192.24.12.0/22"
-        ```
-
-      - **`gcp_global_network_grn`** *(string)*: GCP Resource Name (GRN).
-
-        Examples:
-        ```json
-        "projects/my-project/global/networks/my-global-network"
+        "us-west4"
         ```
 
         ```json
-        "projects/my-project/regions/us-west2/subnetworks/my-subnetwork"
+        "us-central1"
         ```
 
-        ```json
-        "projects/my-project/topics/my-pubsub-topic"
-        ```
-
-        ```json
-        "projects/my-project/subscriptions/my-pubsub-subscription"
-        ```
-
-        ```json
-        "projects/my-project/locations/us-west2/instances/my-redis-instance"
-        ```
-
-        ```json
-        "projects/my-project/locations/us-west2/clusters/my-gke-cluster"
-        ```
-
-      - **`grn`** *(string)*: GCP Resource Name (GRN).
-
-        Examples:
-        ```json
-        "projects/my-project/global/networks/my-global-network"
-        ```
-
-        ```json
-        "projects/my-project/regions/us-west2/subnetworks/my-subnetwork"
-        ```
-
-        ```json
-        "projects/my-project/topics/my-pubsub-topic"
-        ```
-
-        ```json
-        "projects/my-project/subscriptions/my-pubsub-subscription"
-        ```
-
-        ```json
-        "projects/my-project/locations/us-west2/instances/my-redis-instance"
-        ```
-
-        ```json
-        "projects/my-project/locations/us-west2/clusters/my-gke-cluster"
-        ```
-
-  - **`specs`** *(object)*
-    - **`gcp`** *(object)*: .
-      - **`project`** *(string)*
-      - **`region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
-
-        Examples:
-        ```json
-        "us-west2"
-        ```
-
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: GCP Zone.
-
-        Examples:
 <!-- CONNECTIONS:END -->
 
 </details>
@@ -298,7 +248,7 @@ Resources created by this bundle that can be connected to other bundles.
 
     - **`security`** *(object)*: GCP Security Configuration. Cannot contain additional properties.
       - **`iam`** *(object)*: IAM Roles And Conditions. Cannot contain additional properties.
-        - **`^[a-z-/]+$`** *(object)*
+        - **`^[a-z]+[a-z_]*[a-z]$`** *(object)*
           - **`condition`** *(string)*: GCP IAM Condition.
           - **`role`**: GCP Role.
 
