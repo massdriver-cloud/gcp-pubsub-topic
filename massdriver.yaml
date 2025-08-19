@@ -1,28 +1,27 @@
 schema: draft-07
 name: gcp-pubsub-topic
-description: "GCP Pub/Sub Topic"
-source_url: github.com/massdriver-cloud/gcp-pubsub-topic
-access: public
-type: bundle
-
+version: 1.0.0
+description: GCP Pub/Sub Topic
+source_url: https://github.com/massdriver-cloud/gcp-pubsub-topic
+type: application
 params:
   examples:
-    - __name: Development
-      message_retention_duration_seconds: 600
-    - __name: Production
-      message_retention_duration_seconds: 86600
-      monitoring_configuration:
-        enabled: true
+  - __name: Development
+    message_retention_duration_seconds: 600
+  - __name: Production
+    message_retention_duration_seconds: 86600
+    monitoring_configuration:
+      enabled: true
   required:
-    - region
-    - message_retention_duration_seconds
-    - monitoring_configuration
+  - region
+  - message_retention_duration_seconds
+  - monitoring_configuration
   properties:
     region:
-      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
+      "$ref": https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
       title: Region
       description: GCP region to create the pubsub in.
-      $md.immutable: true
+      "$md.immutable": true
     message_retention_duration_seconds:
       type: integer
       title: Message Retention Duration
@@ -35,7 +34,7 @@ params:
       title: Monitoring Configuration
       description: Configure monitoring for your PubSub subscription.
       required:
-        - retained_bytes_above
+      - retained_bytes_above
       properties:
         retained_bytes_above:
           type: integer
@@ -43,34 +42,35 @@ params:
           description: The threshold (in bytes) of messages in the queue to alarm on.
           default: 100000
           minimum: 0
-          # not sure what the max is here, this is 10GB
           maximum: 10000000000
-
 connections:
   required:
-    - gcp_authentication
+  - gcp_authentication
   properties:
     gcp_authentication:
-      $ref: massdriver/gcp-service-account
-
-
+      "$ref": massdriver/gcp-service-account
 artifacts:
   required:
-    - topic
+  - topic
   properties:
     topic:
-      $ref: massdriver/gcp-pubsub-topic
-
+      "$ref": massdriver/gcp-pubsub-topic
 ui:
   ui:order:
-    - region
-    - message_retention_duration_seconds
-    - monitoring_configuration
-    - "*"
+  - region
+  - message_retention_duration_seconds
+  - monitoring_configuration
+  - "*"
   monitoring_configuration:
     ui:order:
-      - enabled
-      - retained_bytes_above
+    - enabled
+    - retained_bytes_above
   region:
     ui:field: supportedCloudLocationsDropdown
     cloudService: gcp
+steps:
+- path: src
+  provisioner: opentofu
+  config:
+    checkov:
+      enable: true
