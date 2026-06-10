@@ -47,13 +47,13 @@ connections:
   - gcp_authentication
   properties:
     gcp_authentication:
-      "$ref": massdriver/gcp-service-account
+      "$ref": gcp-service-account
 artifacts:
   required:
   - topic
   properties:
     topic:
-      "$ref": massdriver/gcp-pubsub-topic
+      "$ref": gcp-pubsub-topic
 ui:
   ui:order:
   - region
