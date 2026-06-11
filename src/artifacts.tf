@@ -1,9 +1,9 @@
 locals {
-  data_infrastructure = {
+  infrastructure = {
     grn = google_pubsub_topic.main.id
   }
 
-  data_security = {
+  security = {
     iam = {
       publisher = {
         role      = "roles/pubsub.publisher"
@@ -17,10 +17,8 @@ locals {
   }
 
   artifact_topic = {
-    data = {
-      infrastructure = local.data_infrastructure
-      security       = local.data_security
-    }
+    infrastructure = local.infrastructure
+    security       = local.security
     specs = {
       topic = local.specs_topic
     }
